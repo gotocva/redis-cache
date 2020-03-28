@@ -6,7 +6,8 @@ const cliProgress = require('cli-progress');
 // create a new progress bar instance and use shades_classic theme
 const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
-const limit = 20000;
+const limit = process.argv[2] || 20000;
+
 // start the progress bar with a total value of 200 and start value of 0
 bar1.start(limit, 0);
 for (let i = 1; i <= limit; i++) {

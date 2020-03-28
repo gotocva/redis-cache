@@ -16,6 +16,22 @@ app.use(function(req, res, next) {
 app.use(express.json());
 
 app.get('/search-user', (req, res) => {
+    const sql = `SELECT * FROM users WHERE email = "${req.query.email}"`;
+    connection.query(
+        sql,
+        function(err, results, fields) {
+            // user exists on database 
+            if (results.length != 0) {
+                res.json(results[0]);
+            } else {
+                // user not found on database
+                res.json({ "error": "user not found" });
+            }
+        }
+    );
+});
+
+app.get('/search-user-with-cache', (req, res) => {
 
     const sql = `SELECT * FROM users WHERE email = "${req.query.email}"`;
 
